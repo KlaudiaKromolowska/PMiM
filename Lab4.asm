@@ -1,13 +1,3 @@
-#----------------------------------------------------------------
-# Program lab_4.s - Architektury KomputerĂłw
-#----------------------------------------------------------------
-#
-#  To compile: as --defsym FUNC_V1=1 -o lab_4.o lab_4.s
-#  To link:    ld -o lab_4 lab_4.o
-#  To run:     ./lab_4
-#
-#----------------------------------------------------------------
-
 	.equ	write_64, 0x01	# write data to file function
 	.equ	exit_64, 0x3C	# exit program function
 	.equ	stdout, 0x01	# handle to stdout
@@ -112,35 +102,35 @@ skip:
 	dec %r15		# counter--;
 	jnz again
 
-#	disp_str_64 $stdout, $new_line, $1
+	disp_str_64 $stdout, $new_line, $1
 
-#	movb varb, %al			# convert byte to hex string
-#	movb $1, %cl			# it's byte, so size = 1
-#	mov $big_hex_str+2, %rdi	# address of most significant digit of least significant byte
-#	call num2hex
-#	disp_str_64 $stdout, $big_hex_str, $4	# 0x + 2 digits
-#	disp_str_64 $stdout, $new_line, $1
+	movb varb, %al			# convert byte to hex string
+	movb $1, %cl			# it's byte, so size = 1
+	mov $big_hex_str+2, %rdi	# address of most significant digit of least significant byte
+	call num2hex
+	disp_str_64 $stdout, $big_hex_str, $4	# 0x + 2 digits
+	disp_str_64 $stdout, $new_line, $1
 
-#	movw varw, %ax			# convert word to hex string
-#	movb $2, %cl			# it's word, so size = 2
-#	mov $big_hex_str+4, %rdi	# address of most significant digit of least significant byte
-#	call num2hex
-#	disp_str_64 $stdout, $big_hex_str, $6	# 0x + 4 digits
-#	disp_str_64 $stdout, $new_line, $1
+	movw varw, %ax			# convert word to hex string
+	movb $2, %cl			# it's word, so size = 2
+	mov $big_hex_str+4, %rdi	# address of most significant digit of least significant byte
+	call num2hex
+	disp_str_64 $stdout, $big_hex_str, $6	# 0x + 4 digits
+	disp_str_64 $stdout, $new_line, $1
 
-#	movl varl, %eax			# convert long to hex string
-#	movb $4, %cl			# it's long, so size = 4
-#	mov $big_hex_str+8, %rdi	# address of most significant digit of least significant byte
-#	call num2hex
-#	disp_str_64 $stdout, $big_hex_str, $10	# 0x + 8 digits
-#	disp_str_64 $stdout, $new_line, $1
+	movl varl, %eax			# convert long to hex string
+	movb $4, %cl			# it's long, so size = 4
+	mov $big_hex_str+8, %rdi	# address of most significant digit of least significant byte
+	call num2hex
+	disp_str_64 $stdout, $big_hex_str, $10	# 0x + 8 digits
+	disp_str_64 $stdout, $new_line, $1
 
-#	movq varq, %rax			# convert quad to hex string
-#	movb $8, %cl			# it's quad, so size = 8
-#	mov $big_hex_str+16, %rdi	# address of most significant digit of least significant byte
-#	call num2hex
-#	disp_str_64 $stdout, $big_hex_str, $18	# 0x + 16 digits
-#	disp_str_64 $stdout, $new_line, $1
+	movq varq, %rax			# convert quad to hex string
+	movb $8, %cl			# it's quad, so size = 8
+	mov $big_hex_str+16, %rdi	# address of most significant digit of least significant byte
+	call num2hex
+	disp_str_64 $stdout, $big_hex_str, $18	# 0x + 16 digits
+	disp_str_64 $stdout, $new_line, $1
 
 theend:
 	exit_prog_64 $0		# exit program
