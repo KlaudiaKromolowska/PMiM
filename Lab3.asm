@@ -1,12 +1,3 @@
-#----------------------------------------------------------------
-# Program LAB_3.S - Asemblery Laboratorium IS II rok
-#----------------------------------------------------------------
-#
-#  To compile: as -o lab_3.o lab_3.s
-#  To link:    ld -o lab_3 lab_3.o
-#  To run:     ./lab_3
-#
-#---------------------------------------------------------------- 
 
 	.equ	write_64,	1
 	.equ	exit_64,	60
@@ -17,9 +8,9 @@
 	.data
 
 vector:					# vector of items
-	.long	10,70,50,90,60,80,40,20,0,30
+	.long	10,70,50,90,60,11,80,40,20,0,30,13,7
 count:					# count of items
-	.long	( . - vector ) >> 1
+	.quad	( . - vector ) >> 2
 item:	
 	.ascii	"Item "
 line_no:	
@@ -82,7 +73,13 @@ disp_vector_FL:
 next_item:
 	MOV	vector(,%rsi,4),%ebx	# get data
 	CALL	make_string		# convert to string
+	
+	PUSH %rcx
+	PUSH %rsi
 	disp_str_64 $stdout, $item, $item_len	# display prepared string
+	POP %rsi
+	POP %rcx
+	
 	INC	%rsi			# next element
 	LOOP	next_item		# { rcx--; if( rcx ) goto next_item }
 
@@ -100,7 +97,13 @@ disp_vector_LF:
 prev_item:
 	MOV	vector(,%rsi,4),%ebx	# get data
 	CALL	make_string		# convert to string
+	
+	PUSH %rcx
+	PUSH %rsi
 	disp_str_64 $stdout, $item, $item_len	# display prepared string
+	POP %rsi
+	POP %rcx
+	
 	DEC	%rsi			# previous element
 	LOOP	prev_item		# { rcx--; if( rcx ) goto prev_item }
 
@@ -113,6 +116,10 @@ prev_item:
 #
 	.type make_string,@function
 make_string:
+
+	MOVL $0x20202020, number
+	MOVW $0x2020, line_no
+
 	MOV	%esi,%eax		# convert index of vector element to string
 	MOV	$line_no + 2,%rdi
 	CALL	num2dec
